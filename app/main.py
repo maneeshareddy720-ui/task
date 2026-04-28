@@ -8,7 +8,9 @@ from . import models, schemas
 from .auth import (
     hash_password, verify_password, create_access_token,
     get_current_user, require_role
+
 )
+
 
 app = FastAPI(title="Task Manager API")
 
@@ -152,6 +154,13 @@ def delete_task(
 @app.get("/users", response_model=list[schemas.UserOut])
 def list_users(
     db: Session = Depends(get_db),
-    _: models.User = Depends(require_role("admin")),
+    current_user: models.User = Depends(require_role("admin")),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(10, le=100)
 ):
-    return db.execute(select(models.User)).scalars().all()
+    try:
+        stmt = select(models.User).offset(skip).limit(limit)
+        users = db.execute(stmt).scalars().all()
+        return users
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Failed to fetch users")
