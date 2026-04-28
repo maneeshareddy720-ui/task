@@ -1,7 +1,7 @@
 
 # Task Manager API (FastAPI + SQLAlchemy + JWT)
 
-A minimal Task Manager REST API with **authentication (JWT)**, **CRUD**, **validation**, and a **SQLite** database (via SQLAlchemy 2.0). Ship it locally with Uvicorn, or deploy to Render.
+A minimal Task Manager REST API with **authentication (JWT)**, **CRUD**, **validation**, and a **SQLite** database (via SQLAlchemy 2.0). Ship it locally with Uvicorn.
 
 ## Features
 - Users: register, login (JWT), get profile
